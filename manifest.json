@@ -1,0 +1,23 @@
+{
+  "short_name": "Thalappanth",
+  "name": "Thalappanth Online Multiplayer",
+  "icons": [
+    {
+      "src": "game/assets/tap.png.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "game/assets/tap.png.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#000000",
+  "theme_color": "#00ffcc",
+  "display": "standalone",
+  "orientation": "landscape",
+  "scope": "/",
+  "description": "Thalappanth Online Multiplayer Game"
+}
