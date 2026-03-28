@@ -13,8 +13,6 @@
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; font-family: sans-serif;
         }
-
-        /* Landscape Orientation Check */
         @media screen and (orientation: portrait) {
             #rotate-msg { display: flex; }
             #opening-content { display: none; }
@@ -23,25 +21,18 @@
             #rotate-msg { display: none; }
             #opening-content { display: flex; }
         }
-
         #rotate-msg {
             position: fixed; width: 100%; height: 100%;
             background: #111; color: #fff;
             flex-direction: column; justify-content: center; align-items: center;
         }
-
         #opening-content {
             width: 100%; height: 100%;
             justify-content: center; align-items: center;
             opacity: 0;
             transition: opacity 2s ease-in-out;
         }
-
-        .logo-img {
-            max-width: 100%; max-height: 100%;
-            object-fit: contain;
-        }
-
+        .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .fade-in { opacity: 1 !important; }
     </style>
 </head>
@@ -57,11 +48,20 @@
     </div>
 
     <script>
+        // Register Service Worker for PWA installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW Registered'))
+                    .catch(err => console.log('SW Failed', err));
+            });
+        }
+
         window.onload = function() {
             const content = document.getElementById('opening-content');
             setTimeout(() => { content.classList.add('fade-in'); }, 500);
 
-            // Redirect to loading page after 4 seconds
+            // Redirect to loading page after 4.5 seconds
             setTimeout(() => {
                 window.location.href = "game/loading.html";
             }, 4500);
