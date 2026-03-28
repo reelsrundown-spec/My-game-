@@ -10,20 +10,20 @@
             background-color: #050505;
             display: flex; justify-content: center; align-items: center;
             flex-direction: column; font-family: Arial, sans-serif; color: white;
+            overflow: hidden;
         }
-
-        .bar-container { width: 60%; background: #222; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 20px; }
-        .bar-fill { width: 0%; height: 100%; background: #00ffcc; transition: width 0.1s; }
-        .status { font-size: 12px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+        .bar-container { width: 60%; background: #222; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 20px; border: 1px solid #333; }
+        .bar-fill { width: 0%; height: 100%; background: #00ffcc; box-shadow: 0 0 10px #00ffcc; transition: width 0.1s linear; }
+        .status { font-size: 14px; letter-spacing: 2px; color: #00ffcc; text-transform: uppercase; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="status" id="load-text">Connecting to Server...</div>
+    <div class="status" id="load-text">Initializing Multiplayer...</div>
     <div class="bar-container">
         <div class="bar-fill" id="fill"></div>
     </div>
-    <div id="percent" style="margin-top: 10px; font-size: 14px;">0%</div>
+    <div id="percent" style="margin-top: 10px; font-size: 16px; color: #888;">0%</div>
 
     <script>
         let progress = 0;
@@ -31,16 +31,16 @@
         const percent = document.getElementById('percent');
         const status = document.getElementById('load-text');
 
-        const tasks = ["Checking Connection", "Loading Assets", "Syncing Multiplayer", "Starting Game"];
+        const tasks = ["Connecting to Server", "Loading Game Assets", "Syncing Player Data", "Finalizing..."];
 
         const interval = setInterval(() => {
             progress++;
             fill.style.width = progress + "%";
             percent.innerText = progress + "%";
 
-            if(progress < 30) status.innerText = tasks[0];
-            else if(progress < 60) status.innerText = tasks[1];
-            else if(progress < 90) status.innerText = tasks[2];
+            if(progress < 25) status.innerText = tasks[0];
+            else if(progress < 55) status.innerText = tasks[1];
+            else if(progress < 85) status.innerText = tasks[2];
             else status.innerText = tasks[3];
 
             if(progress >= 100) {
@@ -48,9 +48,9 @@
                 setTimeout(() => {
                     // Redirect to Home Page (home.html inside game folder)
                     window.location.href = "home.html";
-                }, 500);
+                }, 800);
             }
-        }, 40); 
+        }, 50); 
     </script>
 </body>
 </html>
