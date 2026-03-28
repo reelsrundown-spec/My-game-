@@ -1,9 +1,10 @@
 const CACHE_NAME = 'thalappanth-v1';
 const assets = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/game/assets/tap.png.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './game/loading.html',
+  './game/assets/tap.png.png'
 ];
 
 self.addEventListener('install', event => {
