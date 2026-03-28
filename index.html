@@ -3,95 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loading Multiplayer Assets</title>
+    <title>Thalappanth - Opening</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #0a0a0a;
-            display: flex; justify-content: center; align-items: center;
-            flex-direction: column; font-family: 'Segoe UI', sans-serif;
-            color: white;
-        }
-
-        .loader-container {
-            width: 80%;
-            max-width: 400px;
-        }
-
-        .progress-bar-bg {
             width: 100%;
-            height: 10px;
-            background-color: #333;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .progress-bar-fill {
-            width: 0%;
             height: 100%;
-            background-color: #00ffcc;
-            box-shadow: 0 0 10px #00ffcc;
-            transition: width 0.1s linear;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        .loading-text {
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* Landscape orientation logic */
+        @media screen and (orientation: portrait) {
+            #rotate-message { display: flex; }
+            #content { display: none; }
         }
 
-        #percent {
-            font-size: 12px;
-            margin-top: 5px;
-            color: #888;
+        @media screen and (orientation: landscape) {
+            #rotate-message { display: none; }
+            #content { display: flex; }
         }
+
+        #rotate-message {
+            position: fixed;
+            width: 100%; height: 100%;
+            background: #111; color: white;
+            flex-direction: column; justify-content: center; align-items: center;
+            font-family: sans-serif;
+        }
+
+        #content {
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .fade-in { opacity: 1 !important; }
     </style>
 </head>
 <body>
 
-    <div class="loader-container">
-        <div class="loading-text" id="status-text">Synchronizing Data...</div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-fill"></div>
-        </div>
-        <div id="percent">0%</div>
+    <div id="rotate-message">
+        <div style="font-size: 40px;">🔄</div>
+        <p>Rotate to Landscape</p>
+    </div>
+
+    <div id="content">
+        <img src="game/assets/tap.png.png" alt="Thalappanth" class="logo-img">
     </div>
 
     <script>
-        const fill = document.getElementById('progress-fill');
-        const percentText = document.getElementById('percent');
-        const statusText = document.getElementById('status-text');
-        
-        let width = 0;
-        const loadingMessages = [
-            "Connecting to Global Server...",
-            "Fetching Player Data...",
-            "Loading Multiplayer Assets...",
-            "Preparing Battle Arena...",
-            "Finalizing Connection..."
-        ];
+        window.onload = function() {
+            const content = document.getElementById('content');
+            
+            // Fade in the image
+            setTimeout(() => {
+                content.classList.add('fade-in');
+            }, 500);
 
-        const interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-                // After loading, go to Home Page
-                setTimeout(() => {
-                    window.location.href = "home.html";
-                }, 500);
-            } else {
-                width++;
-                fill.style.width = width + '%';
-                percentText.innerText = width + '%';
-
-                // Change messages based on progress
-                if (width < 25) statusText.innerText = loadingMessages[0];
-                else if (width < 50) statusText.innerText = loadingMessages[1];
-                else if (width < 75) statusText.innerText = loadingMessages[2];
-                else if (width < 90) statusText.innerText = loadingMessages[3];
-                else statusText.innerText = loadingMessages[4];
-            }
-        }, 50); // Speed of loading (50ms per 1%)
+            // Move to Loading Page after 4 seconds
+            setTimeout(() => {
+                window.location.href = "game/loading.html";
+            }, 4000);
+        };
     </script>
 </body>
 </html>
