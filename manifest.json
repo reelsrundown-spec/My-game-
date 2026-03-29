@@ -2,10 +2,10 @@
   "short_name": "Thalappanth",
   "name": "Thalappanth Online Multiplayer",
   "start_url": "index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "landscape",
   "background_color": "#000000",
-  "theme_color": "#00ffcc",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "game/assets/tap.png.png",
