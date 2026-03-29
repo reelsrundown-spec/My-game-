@@ -10,28 +10,60 @@
             background-color: #050505;
             display: flex; justify-content: center; align-items: center;
             flex-direction: column; font-family: Arial, sans-serif; color: white;
-            overflow: hidden;
+            overflow: hidden; cursor: pointer;
         }
+
+        /* Loading UI */
+        .loader-ui {
+            display: flex; flex-direction: column; align-items: center; width: 100%;
+        }
+
         .bar-container { width: 60%; background: #222; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 20px; border: 1px solid #333; }
         .bar-fill { width: 0%; height: 100%; background: #00ffcc; box-shadow: 0 0 10px #00ffcc; transition: width 0.1s linear; }
         .status { font-size: 14px; letter-spacing: 2px; color: #00ffcc; text-transform: uppercase; font-weight: bold; }
+
+        /* Tap to Start UI (Hidden at first) */
+        #tap-to-start {
+            display: none;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 5px;
+            animation: blink 1s infinite;
+            text-transform: uppercase;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
     </style>
 </head>
-<body>
+<body onclick="checkStart()">
 
-    <div class="status" id="load-text">Initializing Multiplayer...</div>
-    <div class="bar-container">
-        <div class="bar-fill" id="fill"></div>
+    <div id="loading-section" class="loader-ui">
+        <div class="status" id="load-text">Connecting to Server...</div>
+        <div class="bar-container">
+            <div class="bar-fill" id="fill"></div>
+        </div>
+        <div id="percent" style="margin-top: 10px; font-size: 16px; color: #888;">0%</div>
     </div>
-    <div id="percent" style="margin-top: 10px; font-size: 16px; color: #888;">0%</div>
+
+    <div id="tap-to-start">
+        TAP TO START
+    </div>
 
     <script>
         let progress = 0;
+        let isLoaded = false;
         const fill = document.getElementById('fill');
         const percent = document.getElementById('percent');
         const status = document.getElementById('load-text');
+        const loadingSection = document.getElementById('loading-section');
+        const tapText = document.getElementById('tap-to-start');
 
-        const tasks = ["Connecting to Server", "Loading Game Assets", "Syncing Player Data", "Finalizing..."];
+        const tasks = ["Connecting to Server", "Loading Game Assets", "Syncing Player Data", "Ready!"];
 
         const interval = setInterval(() => {
             progress++;
@@ -45,12 +77,22 @@
 
             if(progress >= 100) {
                 clearInterval(interval);
-                setTimeout(() => {
-                    // Redirect to Home Page (home.html inside game folder)
-                    window.location.href = "home.html";
-                }, 800);
+                isLoaded = true;
+                showTapToStart();
             }
-        }, 50); 
+        }, 30); // Loading speed
+
+        function showTapToStart() {
+            loadingSection.style.display = 'none';
+            tapText.style.display = 'block';
+        }
+
+        function checkStart() {
+            if(isLoaded) {
+                // Sound effect play cheyyan pattiya idamaanu ithu
+                window.location.href = "home.html";
+            }
+        }
     </script>
 </body>
 </html>
