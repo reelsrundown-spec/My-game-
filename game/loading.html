@@ -88,9 +88,27 @@
         }
 
         function checkStart() {
-            if(isLoaded) {
-                // Sound effect play cheyyan pattiya idamaanu ithu
+    if(isLoaded) {
+        // Full Screen Trigger
+        let doc = window.document;
+        let docEl = doc.documentElement;
+
+        let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+
+        if (requestFullScreen) {
+            requestFullScreen.call(docEl).then(() => {
+                // Once full screen is active, go to home page
                 window.location.href = "home.html";
+            }).catch(err => {
+                // If full screen fails, still go to home page
+                window.location.href = "home.html";
+            });
+        } else {
+            window.location.href = "home.html";
+        }
+    }
+}
+
             }
         }
     </script>
